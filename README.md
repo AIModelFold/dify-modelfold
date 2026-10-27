@@ -6,7 +6,6 @@ ModelFold is one OpenAI-style API for chat, image, video, and audio models. In D
 
 Site: https://ai.modelfold.online
 
-
 ## 1. Create an API key
 
 1. Sign up at https://ai.modelfold.online.

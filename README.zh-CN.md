@@ -6,7 +6,6 @@ ModelFold 用一套 OpenAI 风格的 API 提供对话、图像、视频和音频
 
 站点：https://ai.modelfold.online
 
-
 ## 1. 准备 API Key
 
 1. 在 https://ai.modelfold.online 注册。
