@@ -1,0 +1,165 @@
+# Minimal ModelFold chat workflow for Dify.
+# Import: Studio → Create from DSL. Then open the app → Environment variables
+# and set MODELFOLD_API_KEY to your own key (mf-…). This file contains no key.
+#
+# The HTTP node posts once to /v1/chat/completions and reads the JSON body.
+# It does not ask ModelFold for a streaming response.
+app:
+  description: Send one question to a ModelFold chat model and return the JSON response.
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: ModelFold hello
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: ModelFold API key from https://ai.modelfold.online/account (API Keys). Paste the key only.
+    id: 7c2a9e10-4b6d-4f31-8a20-11d0e5f6a7b8
+    name: MODELFOLD_API_KEY
+    selector:
+    - env
+    - MODELFOLD_API_KEY
+    value: ''
+    value_type: secret
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: http-request
+      id: start-to-http
+      source: start_node
+      sourceHandle: source
+      target: http_node
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: end
+      id: http-to-end
+      source: http_node
+      sourceHandle: source
+      target: end_node
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: Start
+        type: start
+        variables:
+        - label: question
+          max_length: 2000
+          options: []
+          required: true
+          type: paragraph
+          variable: question
+      height: 90
+      id: start_node
+      position:
+        x: 80
+        y: 220
+      positionAbsolute:
+        x: 80
+        y: 220
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          type: no-auth
+        body:
+          data:
+          - key: ''
+            type: text
+            value: '{"model":"gpt-6-luna","messages":[{"role":"user","content":"{{#start_node.question#}}"}],"max_tokens":256}'
+          type: json
+        desc: Non-streaming chat completion. Change model to any chat id from GET /v1/models.
+        headers: "Authorization: Bearer {{#env.MODELFOLD_API_KEY#}}\nContent-Type: application/json"
+        method: post
+        params: ''
+        retry_config:
+          enabled: false
+          max_retries: 1
+          retry_interval: 1000
+        selected: false
+        timeout:
+          connect: 10
+          read: 120
+          write: 30
+        title: ModelFold chat
+        type: http-request
+        url: https://ai.modelfold.online/v1/chat/completions
+      height: 120
+      id: http_node
+      position:
+        x: 400
+        y: 220
+      positionAbsolute:
+        x: 400
+        y: 220
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - http_node
+          - body
+          value_type: string
+          variable: body
+        - value_selector:
+          - http_node
+          - status_code
+          value_type: number
+          variable: status_code
+        selected: false
+        title: End
+        type: end
+      height: 90
+      id: end_node
+      position:
+        x: 720
+        y: 220
+      positionAbsolute:
+        x: 720
+        y: 220
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.8
