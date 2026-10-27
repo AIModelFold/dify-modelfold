@@ -197,10 +197,3 @@ OpenAI-API-compatible 插件只能加 LLM、向量、重排序、语音转文字
 ## 7. 计费
 
 对话先按 `max_tokens` 预扣，再按真实 token 结算：积分 = 向上取整(（输入 token × 输入单价 + 输出 token × 输出单价）/ 1,000,000)。图像和视频按次计费。价格和积分套餐见 https://ai.modelfold.online。`gpt-6-luna` 的一句短回复经常只扣 1 积分。
-
-## 核对范围
-
-- 用测试 Key 调用 `GET https://ai.modelfold.online/v1/models`，返回 `object: list`，其中对话模型就是上面这 35 个（总共 189 个模型，图像 64 个）。
-- `POST /v1/chat/completions`，模型 `gpt-6-luna`，`max_tokens` 为 32，返回 `object: chat.completion`，正文是 `pong`，扣了 1 积分。
-- 字段名来自 `langgenius/dify-official-plugins` 默认分支上的 `models/openai_api_compatible/provider/openai_api_compatible.yaml` 和 `models/llm/llm.py`。
-- 没有配置过任何 Dify 工作区。写文档时本机 Docker 没在运行，没有起本地 Dify，仓库里也没有 Dify 界面截图。

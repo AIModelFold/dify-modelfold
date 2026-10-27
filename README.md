@@ -197,10 +197,3 @@ Other error types from the gateway: `invalid_messages` (400, empty `messages`), 
 ## 7. Billing
 
 Chat is settled on real token counts after a pre-authorization: `credits = ceil((input tokens × input price + output tokens × output price) / 1,000,000)`. Image and video calls charge per generation. Prices and the credit packs are on https://ai.modelfold.online. A short `gpt-6-luna` reply often costs 1 credit.
-
-## What was checked
-
-- `GET https://ai.modelfold.online/v1/models` with a test key returned `object: list` and the 35 chat ids above (189 models total, 64 of them images).
-- `POST /v1/chat/completions` with `gpt-6-luna` and `max_tokens: 32` returned `object: chat.completion`, the text `pong`, and a charge of 1 credit.
-- Field names were read from `langgenius/dify-official-plugins` `models/openai_api_compatible/provider/openai_api_compatible.yaml` and `models/llm/llm.py` on the default branch.
-- No Dify workspace was configured. Docker was not running, so a local Dify stack was not started and no screenshot in this repo is from a Dify screen.
