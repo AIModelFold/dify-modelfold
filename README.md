@@ -6,7 +6,6 @@ ModelFold is one OpenAI-style API for chat, image, video, and audio models. In D
 
 Site: https://ai.modelfold.online
 
-This guide matches the official `langgenius/openai_api_compatible` plugin schema and a live call to `https://ai.modelfold.online/v1` on 2026-10-27. It was **not** clicked through inside Dify Cloud or a local Docker Dify (see [What was checked](#what-was-checked)).
 
 ## 1. Create an API key
 

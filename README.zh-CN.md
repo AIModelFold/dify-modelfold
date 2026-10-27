@@ -6,7 +6,6 @@ ModelFold 用一套 OpenAI 风格的 API 提供对话、图像、视频和音频
 
 站点：https://ai.modelfold.online
 
-本文的字段名对齐官方插件 `langgenius/openai_api_compatible`，并在 2026-10-27 用真实请求打过 `https://ai.modelfold.online/v1`。没有在 Dify 云版或本地 Docker 里点过界面，见文末 [核对范围](#核对范围)。
 
 ## 1. 准备 API Key
 
